@@ -9,11 +9,20 @@ botaoAdicionar.addEventListener("click", function(event){
     // Montar Tr e Td
     var pacienteTr = montarTr(paciente);
 
+    var erros = validaPaciente(paciente);
+    console.log(erros);
+
+    if(erros.length > 0){
+        exibeMensagensDeErro(erros);        
+        return;
+    }
+
     var tabela = document.querySelector("#tabela-pacientes");
     tabela.appendChild(pacienteTr);
 
     form.reset();
-
+    var mensagensErro = document.querySelector("#mensagens-erro");
+    mensagensErro.innerHTML = "";
 });
 
 function obterDados(form){
@@ -47,6 +56,30 @@ function montarTd(dado, classe){
     td.classList.add(classe);
 
     return td;
+}
+
+function validaPaciente(paciente){
+    var erros = [];
+
+    if(paciente.nome.length == 0) erros.push("O campo 'Nome' não pode estar em branco!");
+    if(!validaPeso(paciente.peso)) erros.push("Peso inválido!");
+    if(!validaAltura(paciente.altura)) erros.push("Altura inválida!");
+    if(paciente.peso.length == 0) erros.push("O campo 'Peso' não pode estar em branco!");
+    if(paciente.altura.length == 0) erros.push("O campo 'Altura' não pode estar em branco!");
+    if(paciente.gordura.length == 0) erros.push("O campo '% de Gordura' não pode estar em branco!");
+    
+    return erros;
+}
+
+function exibeMensagensDeErro(erros){
+    var ul = document.querySelector("#mensagens-erro");
+    ul.innerHTML = "";
+
+    erros.forEach(function(erro){
+        var li = document.createElement("li");
+        li.textContent = erro;
+        ul.appendChild(li);
+    });
 }
 
 // FUNÇÕES JS:
