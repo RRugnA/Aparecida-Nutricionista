@@ -3,10 +3,10 @@ botaoAdicionar.addEventListener("click", function(event){
     event.preventDefault(); // Previne comportamento padrão
 
     // Extraindo informações do paciente pelo Form
-    var form = document.querySelector("#form-adiciona");
-    var paciente = obterDados(form);    
+    const form = document.querySelector("#form-adiciona");
+    const paciente = obterDados(form);    
 
-    var erros = validaPaciente(paciente);
+    const erros = validaPaciente(paciente);
     console.log(erros);
 
     if(erros.length > 0){
@@ -17,18 +17,18 @@ botaoAdicionar.addEventListener("click", function(event){
     adicionaPacienteNaTabela(paciente);    
 
     form.reset();
-    var mensagensErro = document.querySelector("#mensagens-erro");
+    const mensagensErro = document.querySelector("#mensagens-erro");
     mensagensErro.innerHTML = "";
 });
 
 function adicionaPacienteNaTabela(paciente){
-    var pacienteTr = montarTr(paciente);
-    var tabela = document.querySelector("#tabela-pacientes");
+    const pacienteTr = montarTr(paciente);
+    const tabela = document.querySelector("#tabela-pacientes");
     tabela.appendChild(pacienteTr);
 }
 
 function obterDados(form){
-    var paciente = {
+    const paciente = {
         nome: form.nome.value,
         peso: form.peso.value,
         altura: form.altura.value,
@@ -40,7 +40,7 @@ function obterDados(form){
 }
 
 function montarTr(paciente){
-    var pacienteTr = document.createElement("tr");
+    const pacienteTr = document.createElement("tr");
     pacienteTr.classList.add("paciente");
     
     pacienteTr.appendChild(montarTd(paciente.nome, "info-nome"));
@@ -53,7 +53,7 @@ function montarTr(paciente){
 }
 
 function montarTd(dado, classe){
-    var td = document.createElement("td");
+    const td = document.createElement("td");
     td.textContent = dado;
     td.classList.add(classe);
 
@@ -61,7 +61,7 @@ function montarTd(dado, classe){
 }
 
 function validaPaciente(paciente){
-    var erros = [];
+    const erros = [];
 
     if(paciente.nome.length == 0) erros.push("O campo 'Nome' não pode estar em branco!");
     if(!validaPeso(paciente.peso)) erros.push("Peso inválido!");
@@ -74,7 +74,7 @@ function validaPaciente(paciente){
 }
 
 function exibeMensagensDeErro(erros){
-    var ul = document.querySelector("#mensagens-erro");
+    const ul = document.querySelector("#mensagens-erro");
     ul.innerHTML = "";
 
     erros.forEach(function(erro){
